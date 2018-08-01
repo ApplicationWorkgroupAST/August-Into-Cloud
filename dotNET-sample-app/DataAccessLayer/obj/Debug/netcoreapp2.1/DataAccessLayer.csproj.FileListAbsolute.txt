@@ -1,0 +1,14 @@
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/bin/Debug/netcoreapp2.1/DataAccessLayer.deps.json
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/bin/Debug/netcoreapp2.1/DataAccessLayer.runtimeconfig.json
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/bin/Debug/netcoreapp2.1/DataAccessLayer.runtimeconfig.dev.json
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/bin/Debug/netcoreapp2.1/DataAccessLayer.dll
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/bin/Debug/netcoreapp2.1/DataAccessLayer.pdb
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.csproj.CoreCompileInputs.cache
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.RazorAssemblyInfo.cache
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.RazorAssemblyInfo.cs
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.AssemblyInfoInputs.cache
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.AssemblyInfo.cs
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.RazorTargetAssemblyInfo.cache
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.dll
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.pdb
+/Users/burtwalsh/Projects/BusinessLayer/DataAccessLayer/obj/Debug/netcoreapp2.1/DataAccessLayer.csprojResolveAssemblyReference.cache

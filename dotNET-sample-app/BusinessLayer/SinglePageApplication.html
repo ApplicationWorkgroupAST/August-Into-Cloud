@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script>
+
+var projectURL = 'https://localhost:5001/document';
+
+//run when page is first loaded
+$(document).ready(function() {
+
+      //get the existing files which are in the DICTIONARY
+      buildCurrentList();
+
+      //store the file name in the hidden field
+      $('#upload').change(function() {
+          var fileName = $(this).val();
+          var lastIndex = fileName.lastIndexOf("\\");
+          if (lastIndex >= 0) {
+              fileName = fileName.substring(lastIndex + 1);
+          }
+          $('#fileName').val(fileName);
+      });
+
+   $("#uploadForm").submit(function(e) {
+
+       e.preventDefault();    
+
+       //The form data (this) is the file contents of the choosen file
+       //and the fileName which is stored in the hidden input name="fileName" (see below)
+       var formData = new FormData(this);
+  
+       $.ajax({
+         url: projectURL + '/create',
+         type: 'POST',
+         data: formData,
+         success: function (data) {
+           buildCurrentList();
+         },
+         error: function(err) {
+            alert('error ' + err);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+       });
+    });
+});
+
+
+//make a REST call of the server to get the word distribution in the indicated file
+function getFileStats(fileName) {
+
+          $.ajax({
+              type: "GET",
+              url: projectURL + '/getstats/' + fileName,
+              crossDomain: true,
+              success: function(data) {
+
+                  //put the returned JSON into the TEXTAREA in the SPA
+                  //indicating the word count for the choosen file
+                  document.getElementById("fileStats").value = data;
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  document.getElementById("fileStats").value = "Could not get stats for file: " + fileName;
+              }
+          });
+}
+
+
+//get the current list of files
+function buildCurrentList() {
+
+          $.ajax({
+              type: "GET",
+              url: projectURL + '/listall',
+              crossDomain: true,
+              success: function(data) {
+
+                  var ls = $("#options");
+                  ls.children().remove();
+
+                  //convert the data back to a JSON array
+                  data = JSON.parse(data);
+
+                  data.forEach(function(item) {
+                      //this is brittle could build from var r = $("<a></a>");
+
+                      //this adds a drop down element with the name of the file (for instance kathy.txt) and when the drop down element
+                      //is selected the getFileStats(<choosen file name>) method is called
+                      //
+                      //So with a kathy.txt choice you would execute getFileStats("kathy.txt")
+                      ls.append($("<a class=\"dropdown-item\" href=\"#\" onclick=\"getFileStats(\'" + item.fileName + "\')\">" + item.fileName + "</a><br/>"));
+                  });
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                 // alert('error path: ' + JSON.stringify(jqXHR) + '::' + textStatus + '::' + errorThrown);
+              }
+          });
+
+}
+</script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Get File Statistics</h2>     
+  <br/><br/>                                   
+  <div class="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      Choose file from which to get statistics
+    </button>
+    <div class="dropdown-menu" id="options">
+      <a class="dropdown-item" href="#">Link 1</a>
+      <a class="dropdown-item" href="#">Link 2</a>
+      <a class="dropdown-item" href="#">Link 3</a>
+    </div>
+  </div>
+<div class="form-group">
+    File Statistics
+    <textarea class="form-control rounded-0" id="fileStats" rows="10"></textarea>
+</div>
+
+<form action="create" method="post" id="uploadForm" name="uploadForm" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="fileName">File Name:</label>
+    <input type="file" class="form-control" id="upload" name="upload">
+    <input type="hidden" value="" id="fileName" name="fileName"/>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+</div>
+
+</body>
+</html>
+
